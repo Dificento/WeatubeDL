@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    >
+
+    <FontFamily x:Key="DefaultFont">Cascadia Code</FontFamily>
+    <system:Double x:Key="Regular">16</system:Double>
+    <system:Double x:Key="Small">14</system:Double>
+</ResourceDictionary>
