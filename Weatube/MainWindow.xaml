@@ -7,7 +7,7 @@
         xmlns:viewmodel="clr-namespace:Weatube.Viewmodels"
         mc:Ignorable="d"
         x:Name="WeatubeRoot"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Weatube DL" Height="450" Width="800">
     <Window.DataContext>
         <viewmodel:WeatubeViewModel/>
     </Window.DataContext>
@@ -23,24 +23,49 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <DockPanel Panel.ZIndex="1">
-                <TextBox
+            <DockPanel Panel.ZIndex="1" Background="{StaticResource BrightBackgroundBrush}">
+                <Grid>
+                    <TextBox
+                    x:Name="SearchBox"
                     Style="{StaticResource SearchTextBox}"
-                    Width="580"
+                    Width="570"
                     Text="{Binding SearchVideo, UpdateSourceTrigger=PropertyChanged}"
                     />
+                    <TextBlock 
+                    IsHitTestVisible="False" 
+                    Text="Enter video link here..."
+                    FontFamily="{StaticResource DefaultFont}"
+                    FontSize="{StaticResource Small}"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left" 
+                    Margin="10,0,0,0" 
+                    Foreground="#444">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
 
                 <ComboBox
-                    Style="{StaticResource SuggestedVideoComboBox}"
+                    Style="{StaticResource Weabox}"
                     Width="100"
-                    SelectedItem="{Binding SelectedType, Mode=TwoWay}"
-                    ItemsSource="{Binding SuggestedTypes}"/>
+                    IsEnabled="{Binding suggestion.IsEnabled}"
+                    SelectedItem="{Binding suggestion.SelectedType, Mode=TwoWay}"
+                    ItemsSource="{Binding suggestion.SuggestedTypes}"/>
+                
                 <Button 
                     Width="110"
                     HorizontalAlignment="Right"
                     Style="{StaticResource DefaultButton}"
                     Command="{Binding AddVideo}"
-                    CommandParameter="{Binding SelectedVideos}"
+                    CommandParameter="{Binding suggestion.SelectedVideos}"
                     Content="Add Video"/>
             </DockPanel>
             <Grid Grid.Row="1" Background="{StaticResource BaseBackgroundBrush}">
@@ -48,14 +73,14 @@
                     x:Name="SuggestionPanel"
                     Margin="0,0,0,0"
                     Style="{StaticResource SuggestedVideoPanel}"
-                    IsEnabled="{Binding IsSuggestionEnabled}"
+                    IsEnabled="{Binding suggestion.IsEnabled}"
                     IsEnabledChanged="SuggestionPanel_IsEnabledChanged"
                     >
                     
                     <Image
                         HorizontalAlignment="Left"
                         Width="120"
-                        Source="{Binding SuggestedImage}"
+                        Source="{Binding suggestion.SuggestedImage}"
                         />
                     <TextBlock
                         Margin="10,0"
@@ -65,7 +90,7 @@
                         Foreground="{StaticResource BaseTextBrush}"
                         HorizontalAlignment="Left"
                         Width="500"
-                        Text="{Binding SuggestedVideoName}"
+                        Text="{Binding suggestion.SuggestedVideoName}"
                         />
                 </DockPanel>
             </Grid>
@@ -96,7 +121,14 @@
                                     Style="{StaticResource QueuedVideoText}"
                                     Text="{Binding Name}"/>
                                 <ComboBox
-                                    Style="{StaticResource QueuedVideoTypeBox}"
+                                    Style="{StaticResource Weabox}"
+                                    Width="120"
+                                    Height="40"
+                                    Margin="5, 0"
+                                    HorizontalAlignment="Right"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    VerticalAlignment="Center"
                                     ItemsSource="{Binding outputFormats}"
                                     SelectedItem="{Binding selectedFormat, Mode=TwoWay}"
                                     />
@@ -119,13 +151,13 @@
                         HorizontalAlignment="Left"
                         Command="{Binding ChooseSaveDirectory}"/>
                 <TextBlock
-                    Margin="15,0"
-                    VerticalAlignment="Center"
-                    Foreground="{StaticResource DarkerTextBrush}"
-                    FontSize="{StaticResource Regular}"
-                    FontFamily="{StaticResource DefaultFont}"
-                    Width="470"
-                    Text="{Binding SaveDirectoryPath}"/>
+                        Margin="15,0"
+                        VerticalAlignment="Center"
+                        Foreground="{StaticResource DarkerTextBrush}"
+                        FontSize="{StaticResource Regular}"
+                        FontFamily="{StaticResource DefaultFont}"
+                        Width="470"
+                        Text="{Binding SaveDirectoryPath}"/>
                 <Button Style="{StaticResource DefaultButton}"
                         Content="Clear Queue"
                         HorizontalAlignment="Right"

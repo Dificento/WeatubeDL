@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Collections.ObjectModel;
 using Weatube.Properties;
 using Weatube.Viewmodels;
@@ -11,13 +6,13 @@ using System.Windows;
 
 namespace Weatube.Models
 {
-    class VideoModel : RootViewModel
+    class VideoModel : NotifyPropertyChangedBehavior
     {
         public YoutubeDL.Video YoutubeVideo { get; set; }
 
-        public string Name { get { return YoutubeVideo != null ? YoutubeVideo.Name : null; } }
+        public string Name { get { return YoutubeVideo?.Name; } }
 
-        public ImageSource Image { get { return YoutubeVideo != null ? YoutubeVideo.ImageSourceFromBitmap() : null; } }
+        public ImageSource Image { get { return YoutubeVideo?.ImageSourceFromBitmap(); } }
 
         public ObservableCollection<YoutubeDL.Video.OutputFormat> outputFormats { get; set; }
 
@@ -25,7 +20,7 @@ namespace Weatube.Models
         {
             get
             {
-                return YoutubeVideo != null ? YoutubeVideo.SelectedFormat : null;
+                return YoutubeVideo?.SelectedFormat;
             }
             set
             {
