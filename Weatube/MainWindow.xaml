@@ -7,100 +7,146 @@
         xmlns:viewmodel="clr-namespace:Weatube.Viewmodels"
         mc:Ignorable="d"
         x:Name="WeatubeRoot"
-        Title="Weatube DL" Height="450" Width="800">
+        Title="Weatube DL" Height="540" Width="720"
+        Background="{StaticResource BrightBackgroundBrush}"
+        ResizeMode="CanMinimize">
     <Window.DataContext>
         <viewmodel:WeatubeViewModel/>
     </Window.DataContext>
     <Grid Background="{StaticResource BaseBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
-            <RowDefinition Height="280"/>
+            <RowDefinition Height="180"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="240"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid Background="{StaticResource BaseBackgroundBrush}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <DockPanel Panel.ZIndex="1" Background="{StaticResource BrightBackgroundBrush}">
-                <Grid>
-                    <TextBox
-                    x:Name="SearchBox"
-                    Style="{StaticResource SearchTextBox}"
-                    Width="570"
-                    Text="{Binding SearchVideo, UpdateSourceTrigger=PropertyChanged}"
-                    />
-                    <TextBlock 
-                    IsHitTestVisible="False" 
-                    Text="Enter video link here..."
-                    FontFamily="{StaticResource DefaultFont}"
-                    FontSize="{StaticResource Small}"
-                    VerticalAlignment="Center" 
-                    HorizontalAlignment="Left" 
-                    Margin="10,0,0,0" 
-                    Foreground="#444">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
-
-                <ComboBox
-                    Style="{StaticResource Weabox}"
-                    Width="100"
-                    IsEnabled="{Binding suggestion.IsEnabled}"
-                    SelectedItem="{Binding suggestion.SelectedType, Mode=TwoWay}"
-                    ItemsSource="{Binding suggestion.SuggestedTypes}"/>
-                
-                <Button 
-                    Width="110"
-                    HorizontalAlignment="Right"
-                    Style="{StaticResource DefaultButton}"
-                    Command="{Binding AddVideo}"
-                    CommandParameter="{Binding suggestion.SelectedVideos}"
-                    Content="Add Video"/>
-            </DockPanel>
-            <Grid Grid.Row="1" Background="{StaticResource BaseBackgroundBrush}">
-                <DockPanel
-                    x:Name="SuggestionPanel"
-                    Margin="0,0,0,0"
-                    Style="{StaticResource SuggestedVideoPanel}"
-                    IsEnabled="{Binding suggestion.IsEnabled}"
-                    IsEnabledChanged="SuggestionPanel_IsEnabledChanged"
-                    >
-                    
-                    <Image
-                        HorizontalAlignment="Left"
-                        Width="120"
-                        Source="{Binding suggestion.SuggestedImage}"
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#e5e5e5"
+                    Margin="10,10,10,5"
+                    >      
+                    <Grid>
+                        <TextBox
+                        x:Name="SearchBox"
+                        Style="{StaticResource SearchTextBox}"
+                        Text="{Binding SearchVideo, UpdateSourceTrigger=PropertyChanged}"
+                            Margin="9,0,0,0"
                         />
-                    <TextBlock
-                        Margin="10,0"
-                        VerticalAlignment="Center"
-                        FontSize="{StaticResource Regular}"
+                        <TextBlock 
+                        IsHitTestVisible="False" 
+                        Text="https://youtube.com/..."
                         FontFamily="{StaticResource DefaultFont}"
-                        Foreground="{StaticResource BaseTextBrush}"
-                        HorizontalAlignment="Left"
-                        Width="500"
-                        Text="{Binding suggestion.SuggestedVideoName}"
-                        />
-                </DockPanel>
+                        FontSize="{StaticResource Small}"
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,0,0,0" 
+                        Foreground="{StaticResource OutlineBrush}">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+
+            </DockPanel>
+            <Grid Grid.Row="1" Background="{StaticResource BrightBackgroundBrush}">
+                <Border
+                    BorderThickness="1"
+                    BorderBrush="#e5e5e5"
+                    Margin="10,5,10,10"
+                    >
+                    <DockPanel
+                        x:Name="SuggestionPanel"
+                        Style="{StaticResource SuggestedVideoPanel}"
+                        IsEnabled="{Binding suggestion.IsEnabled}"
+                        IsEnabledChanged="SuggestionPanel_IsEnabledChanged"
+                        >
+                    
+                        <Image
+                            HorizontalAlignment="Left"
+                            Height="103"
+                            Source="{Binding suggestion.SuggestedImage}"
+                            />
+                        <StackPanel Width="350">
+                            <TextBlock
+                                Margin="10,10"
+                                FontSize="{StaticResource Small}"
+                                FontFamily="{StaticResource DefaultFont}"
+                                Foreground="{StaticResource BaseTextBrush}"
+                                Text="{Binding suggestion.SuggestedServiceType}"
+                                />
+                            <TextBlock
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                MaxHeight="60"
+                                FontFamily="{StaticResource DefaultFont}"
+                                Foreground="{StaticResource BaseTextBrush}"
+                                HorizontalAlignment="Left"
+                                Text="{Binding suggestion.SuggestedVideoName}"
+                                TextWrapping="Wrap"
+                                TextTrimming="CharacterEllipsis"
+                            />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ComboBox
+                                Style="{StaticResource Weabox}"
+                                Width="120"
+                                Height="37"
+                                Margin="10,10,10,5"
+                                HorizontalAlignment="Right"
+                                IsEnabled="{Binding suggestion.IsEnabled}"
+                                SelectedItem="{Binding suggestion.SelectedType, Mode=TwoWay}"
+                                ItemsSource="{Binding suggestion.SuggestedTypes}"
+                            />
+
+                            <Button 
+                                Margin="10,5,10,10"
+                                Width="120"
+                                Height="37"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Style="{StaticResource DefaultButton}"
+                                Command="{Binding AddVideo}"
+                                CommandParameter="{Binding suggestion.SelectedVideos}"
+                                Content="ADD"
+                            />
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="1">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Grid.Row="1" Background="{StaticResource BrightBackgroundBrush}">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="20"
+                FontFamily="{StaticResource SansBold}"
+                Foreground="{StaticResource BaseTextBrush}"
+                Margin="10,0"
+                Text="Here's all the shit you've added..."/>
+        </Grid>
+        
+        <Grid Grid.Row="2" Background="{StaticResource BrightBackgroundBrush}">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="10,5,10,10">
                 <ItemsControl
-                    x:Name="VideoItems"
-                    ItemsSource="{Binding QueuedVideos}">
+                        x:Name="VideoItems"
+                        ItemsSource="{Binding QueuedVideos}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel/>
@@ -112,61 +158,100 @@
                                 IsEnabledChanged="QueuePanel_IsEnabledChanged"
                                 IsEnabled="{Binding IsPanelEnabled}"
                                 Style="{StaticResource QueuedVideoPanel}"
-                                Margin="{Binding Margin, Mode=TwoWay}"
-                                Background="{Binding DownloadState}">
-                                <Image 
-                                    Source="{Binding Image}"
-                                    Style="{StaticResource QueuedVideoImage}"/>
-                                <TextBlock 
-                                    Style="{StaticResource QueuedVideoText}"
-                                    Text="{Binding Name}"/>
-                                <ComboBox
-                                    Style="{StaticResource Weabox}"
-                                    Width="120"
-                                    Height="40"
-                                    Margin="5, 0"
-                                    HorizontalAlignment="Right"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    ItemsSource="{Binding outputFormats}"
-                                    SelectedItem="{Binding selectedFormat, Mode=TwoWay}"
-                                    />
-                                <Button
-                                    Style="{StaticResource QueuedVideoDeleteButton}"
-                                    Command="{Binding ElementName=VideoItems, Path=DataContext.DeleteVideo}"
-                                    CommandParameter="{Binding}"
-                                    Content="x"/>
+                                Margin="{Binding Margin, Mode=TwoWay}">
+                                <Grid>
+                                    <Border
+                                        Height="65"
+                                        BorderThickness="1"
+                                        BorderBrush="#e5e5e5"
+                                        Margin="1"
+                                        >
+                                        <DockPanel>
+                                            <Image 
+                                                    Source="{Binding Image}"
+                                                    Style="{StaticResource QueuedVideoImage}"/>
+                                            <StackPanel>
+                                                <TextBlock
+                                                        VerticalAlignment="Top"
+                                                        Margin="10,7,0,0"
+                                                        FontSize="11"
+                                                        FontFamily="{StaticResource DefaultFont}"
+                                                        Text="{Binding Type}"/>
+                                                <TextBlock 
+                                                    Style="{StaticResource QueuedVideoText}"
+                                                    Text="{Binding Name}"/>
+                                            </StackPanel>
+                                            <DockPanel HorizontalAlignment="Right">
+                                                <ComboBox
+                                                        Style="{StaticResource Weabox}"
+                                                        Width="120"
+                                                        Height="40"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        ItemsSource="{Binding outputFormats}"
+                                                        SelectedItem="{Binding selectedFormat, Mode=TwoWay}"
+                                                        />
+                                                <Button
+                                                        Style="{StaticResource CloseButton}"
+                                                        Command="{Binding ElementName=VideoItems, Path=DataContext.DeleteVideo}"
+                                                        CommandParameter="{Binding}"
+                                                        HorizontalContentAlignment="Center"
+                                                        VerticalContentAlignment="Center"
+                                                        >
+                                                    <TextBlock
+                                                            Text=""
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                            Foreground="{StaticResource BaseTextBrush}"
+                                                            FontSize="{StaticResource Small}"
+                                                            FontFamily="{StaticResource FA5}"/>
+                                                </Button>
+                                            </DockPanel>
+                                        </DockPanel>
+                                    </Border>
+                                    <DockPanel Panel.ZIndex="2"
+                                        Width="670"
+                                        Height="3"
+                                        Margin="2,0,2,3"
+                                        VerticalAlignment="Bottom"
+                                        Background="{Binding DownloadState}"/>
+                                </Grid>
                             </DockPanel>
+
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
-        <Grid Grid.Row="2">
-            <DockPanel>
-                <Button Style="{StaticResource DefaultButton}"
-                        Content="Dir"
-                        Width="60"
-                        HorizontalAlignment="Left"
-                        Command="{Binding ChooseSaveDirectory}"/>
-                <TextBlock
-                        Margin="15,0"
-                        VerticalAlignment="Center"
-                        Foreground="{StaticResource DarkerTextBrush}"
-                        FontSize="{StaticResource Regular}"
-                        FontFamily="{StaticResource DefaultFont}"
-                        Width="470"
-                        Text="{Binding SaveDirectoryPath}"/>
-                <Button Style="{StaticResource DefaultButton}"
-                        Content="Clear Queue"
-                        HorizontalAlignment="Right"
-                        Command="{Binding ClearQueue}"/>
-                <Button Style="{StaticResource DefaultButton}"
-                        Content="Download All"
-                        HorizontalAlignment="Right"
-                        Command="{Binding DownloadVideos}"/>
-            </DockPanel>
+        <Grid Grid.Row="3" Background="{StaticResource BrightBackgroundBrush}">
+            <Border
+                     BorderThickness="0,1,0,0"
+                    BorderBrush="#e5e5e5">
+                <DockPanel>
+                    <Button Style="{StaticResource FolderButton}"
+                            FontFamily="{StaticResource FA5}"
+                            FontSize="18"
+                            Content=""
+                            Width="40"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ChooseSaveDirectory}"
+                            />
+                    <TextBlock
+                            Margin="0,0"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource MagentaTextBrush}"
+                            FontSize="{StaticResource Regular}"
+                            FontFamily="{StaticResource SansBold}"
+                            Width="470"
+                            Text="{Binding SaveDirectoryPath}"/>
+                    <Button 
+                            Style="{StaticResource DefaultButton}"
+                            Content="PROCEED"
+                            HorizontalAlignment="Right"
+                            Width="126"
+                            Command="{Binding DownloadVideos}"/>
+                </DockPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>

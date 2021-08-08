@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using Weatube.Properties;
 using Weatube.Viewmodels;
 using System.Windows;
+using System.Diagnostics;
 
 namespace Weatube.Models
 {
@@ -14,7 +15,25 @@ namespace Weatube.Models
 
         public ImageSource Image { get { return YoutubeVideo?.ImageSourceFromBitmap(); } }
 
+        public string Type { get { return YoutubeVideo?.Type.ToUpper(); } }
+
+        public bool _IsDownloaded = false;
+        public bool IsDownloaded
+        {
+            get
+            {
+                return _IsDownloaded;
+            }
+            set
+            {
+                if (value && DownloadProcess != null && !DownloadProcess.HasExited) DownloadProcess.Kill();
+                _IsDownloaded = value;
+            }
+        }
+
         public ObservableCollection<YoutubeDL.Video.OutputFormat> outputFormats { get; set; }
+
+        public Process DownloadProcess { get; set; }
 
         public YoutubeDL.Video.OutputFormat selectedFormat
         {
@@ -48,6 +67,13 @@ namespace Weatube.Models
             outputFormats = new ObservableCollection<YoutubeDL.Video.OutputFormat>(vid.AvailableFormats);
             DownloadState = Utils.DownloadStateChange(0d);
             Margin = new Thickness(-1600, 0, 0, 0);
+        }
+
+        public void Disable()
+        {
+            System.Console.WriteLine("Disabling");
+            IsDownloaded = true;
+            System.Console.WriteLine(DownloadProcess?.ExitCode);
         }
 
     }

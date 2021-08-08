@@ -1,23 +1,32 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="BaseBackgroundBrush" Color="#260d34"/>
-    <Color x:Key="BaseBackgroundColor">#260d34</Color>
+    <SolidColorBrush x:Key="BaseBackgroundBrush" Color="#E5E5E5"/>
+    <Color x:Key="BaseBackgroundColor">#E5E5E5</Color>
 
-    <SolidColorBrush x:Key="BrightBackgroundBrush" Color="#161b22"/>
-    <Color x:Key="BrightBackgroundColor">#452459</Color>
+    <SolidColorBrush x:Key="BrightBackgroundBrush" Color="#fff"/>
+    <Color x:Key="BrightBackgroundColor">#fff</Color>
 
-    <SolidColorBrush x:Key="BaseTextBrush" Color="#ffffff"/>
-    <Color x:Key="BaseTextColor">#ffffff</Color>
+    <SolidColorBrush x:Key="OutlineBrush" Color="#999999"/>
+    <Color x:Key="OutlineColor">#999999</Color>
 
-    <SolidColorBrush x:Key="DarkerTextBrush" Color="#fe6c90"/>
-    <Color x:Key="DarkerTextColor">#fe6c90</Color>
+    <SolidColorBrush x:Key="BaseTextBrush" Color="#333333"/>
+    <Color x:Key="BaseTextColor">#333333</Color>
 
-    <SolidColorBrush x:Key="BaseButtonBrush" Color="#fe6c90"/>
-    <Color x:Key="BaseButtonColor">#fe6c90</Color>
+    <SolidColorBrush x:Key="MagentaTextBrush" Color="#BF0070"/>
+    <Color x:Key="MagentaTextColor">#BF0070</Color>
 
-    <SolidColorBrush x:Key="VideoPanelStartBrush" Color="#d03791"/>
-    <Color x:Key="VideoPanelStartColor">#d03791</Color>
+    <SolidColorBrush x:Key="RedBrush" Color="#E00001"/>
+    <Color x:Key="RedColor">#E00001</Color>
+
+    <SolidColorBrush x:Key="GreenBrush" Color="#01B400"/>
+    <Color x:Key="GreenColor">#01B400</Color>
+
+    <SolidColorBrush x:Key="OnHoverBrush" Color="#c61a7f"/>
+    <Color x:Key="OnHoverColor">#c61a7f</Color>
+
+    <SolidColorBrush x:Key="OnHoverItemBrush" Color="#F9E6F1"/>
+    <Color x:Key="OnHoverItemColor">#F9E6F1</Color>
 
     <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="#452459" />
     <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush" Color="#161b22" />

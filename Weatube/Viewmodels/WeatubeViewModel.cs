@@ -59,10 +59,11 @@ namespace Weatube.Viewmodels
 
                       var vid = new YoutubeDL(_SearchVideo);
                       if (await vid.InitAsync() != null)
-                          suggestion = new SuggestionModel(vid);
+                          if (_SearchVideo == vid.SourceUrl) suggestion = new SuggestionModel(vid);
                   });
             }
         }
+
 
         public WeatubeViewModel()
         {
@@ -80,7 +81,7 @@ namespace Weatube.Viewmodels
                     {
                         video.SelectedFormat = suggestion.SelectedType;
                         QueuedVideos.Add(new VideoModel(video));
-                        await Task.Delay(5);
+                        await Task.Delay(15);
                         QueuedVideos.Last().IsPanelEnabled = true;
                     }
                     SearchVideo = "";
@@ -90,25 +91,44 @@ namespace Weatube.Viewmodels
             new DelegateCommand<VideoModel>(async (video) =>
             {
                 QueuedVideos[QueuedVideos.IndexOf(video)].IsPanelEnabled = false;
+                video.Disable();
                 await Task.Delay(300);
                 QueuedVideos.Remove(video);
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                Task.Run(() =>
+                {
+                    var path = SaveDirectoryPath + '\\';
+                    foreach (var f in Directory.GetFiles(path, "*.part"))
+                    {
+                        try
+                        {
+                            File.Delete(f);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("похуй...");
+                        }
+                    }
+                });
+#pragma warning restore CS4014
                 CommandManager.InvalidateRequerySuggested();
             }, (video) => QueuedVideos.Contains(video));
 
         public ICommand DownloadVideos =>
             new DelegateCommand(async () =>
             {
-                for (int i = 0; i < QueuedVideos.Count; i++)
+                VideoModel vid;
+                while ((vid = QueuedVideos.FirstOrDefault(a => !a.IsDownloaded)) != null)
                 {
-                    var filename = SaveDirectoryPath + '\\' + QueuedVideos[i].YoutubeVideo.Name +
-                        (QueuedVideos[i].YoutubeVideo.SelectedFormat.Name == "mp3" ? ".mp3" : ".mp4");
-                    var process = YoutubeDL.RunProcess(QueuedVideos[i].YoutubeVideo.GetCommandArguments(filename));
+                    var filename = SaveDirectoryPath + '\\' + "%(title)s.%(ext)s";
+                    var process = vid.DownloadProcess = YoutubeDL.RunProcess(vid.YoutubeVideo.GetCommandArguments(filename));
                     while (!process.HasExited)
-                        QueuedVideos[i].DownloadState =
+                        vid.DownloadState =
                         Utils.DownloadStateChange(Utils.PercentFromOutput(await process.StandardOutput.ReadLineAsync()));
                     if(!File.Exists(filename))
-                        QueuedVideos[i].DownloadState = 
+                        vid.DownloadState = 
                             Utils.DownloadStateChange(Utils.PercentFromOutput(null, await process.StandardError.ReadLineAsync()));
+                    vid.IsDownloaded = true;
                 }
                 CommandManager.InvalidateRequerySuggested();
             }, () => QueuedVideos.Count > 0);
@@ -116,7 +136,7 @@ namespace Weatube.Viewmodels
         public ICommand ClearQueue =>
             new DelegateCommand(async () =>
             {
-                foreach (var item in QueuedVideos)
+                foreach (var item in QueuedVideos.Reverse())
                 {
                     item.IsPanelEnabled = false;
                     await Task.Delay(25);

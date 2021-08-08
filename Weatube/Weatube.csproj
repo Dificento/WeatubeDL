@@ -167,6 +167,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <Resource Include="Properties\Fonts\PTSans-Bold.ttf" />
+    <Resource Include="Properties\Fonts\PTSans-Italic.ttf" />
+    <Resource Include="Properties\Fonts\PTSans-Regular.ttf" />
+    <Resource Include="Properties\Fonts\Font_Awesome_5.otf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -24,12 +24,12 @@ namespace Weatube
             if ((sender as DockPanel).IsEnabled)
             {
                 var sb = Application.Current.Resources["ShowSuggested"] as Storyboard;
-                sb.Begin(sender as DockPanel);
+                sb.Begin((sender as DockPanel).Parent as Border);
             }
             else
             {
                 var sb = Application.Current.Resources["HideSuggested"] as Storyboard;
-                sb.Begin(sender as DockPanel);
+                sb.Begin((sender as DockPanel).Parent as Border);
             }
 
         }

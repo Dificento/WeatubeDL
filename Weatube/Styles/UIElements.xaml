@@ -17,13 +17,15 @@
         
     </Style>
     <Style x:Key="DefaultButton" TargetType="{x:Type Button}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
-        <Setter Property="FontSize" Value="{StaticResource Regular}"/>
+        <Setter Property="FontWeight" Value="Black"/>
+        <Setter Property="FontSize" Value="{StaticResource Small}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{StaticResource BaseTextBrush}"/>
-        <Setter Property="Background" Value="{StaticResource BaseButtonBrush}"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource BrightBackgroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource MagentaTextBrush}"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -37,23 +39,23 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{StaticResource DarkerTextBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource BrightBackgroundBrush}"/>
                 <Setter Property="Background" Value="{StaticResource BrightBackgroundBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource BaseTextBrush}"/>
-                <Setter Property="Background" Value="{StaticResource BaseButtonBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource  BrightBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource MagentaTextBrush}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource BaseTextBrush}"/>
-                <Setter Property="Foreground" Value="{StaticResource DarkerTextBrush}"/>
+                <Setter Property="Background" Value="{StaticResource OnHoverBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource BrightBackgroundBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
                             <ColorAnimation Duration="0:0:0.1" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="#555555"/>
-                            <ColorAnimation Duration="0:0:0.1" BeginTime="0:0:0.1" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{StaticResource BaseButtonColor}"/>
+                            <ColorAnimation Duration="0:0:0.1" BeginTime="0:0:0.1" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{StaticResource MagentaTextColor}"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
@@ -62,54 +64,218 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="FolderButton" TargetType="{x:Type Button}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
+        <Setter Property="FontWeight" Value="Black"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource MagentaTextBrush}"/>
+        <Setter Property="Background" Value="{StaticResource BrightBackgroundBrush}"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="0" Name="border" 
+                            BorderThickness="0"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource BrightBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource BrightBackgroundBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource  MagentaTextBrush}"/>
+                <Setter Property="Background" Value="{StaticResource BrightBackgroundBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource BaseTextBrush}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{StaticResource MagentaTextColor}"/>
+                            <ColorAnimation Duration="0:0:0.1" BeginTime="0:0:0.1" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{StaticResource BrightBackgroundColor}"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="CloseButton" TargetType="{x:Type Button}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Height" Value="65"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="FontFamily" Value="{StaticResource SansBold}"/>
+        <Setter Property="FontSize" Value="{StaticResource Regular}"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="{StaticResource BrightBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource BaseTextBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="0" Name="border" 
+                            BorderThickness="0"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource BrightBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource BrightBackgroundBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource  BaseTextBrush}"/>
+                <Setter Property="Background" Value="{StaticResource BrightBackgroundBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource BrightBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource MagentaTextBrush}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Duration="0:0:0.1" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{StaticResource MagentaTextColor}"/>
+                            <ColorAnimation Duration="0:0:0.1" BeginTime="0:0:0.1" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{StaticResource BrightBackgroundColor}"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+    
     <Storyboard x:Key="ShowSuggested">
-        <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,-100,0,0" To="0,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.3"/>
+        <ThicknessAnimation Storyboard.TargetProperty="Margin" From="10,-100,10,10" To="10,5,10,10" DecelerationRatio="0.9" Duration="0:0:0.3"/>
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" DecelerationRatio="0.9" Duration="0:0:0.3"/>
     </Storyboard>
     <Storyboard x:Key="HideSuggested">
-        <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="0,-100,0,0" DecelerationRatio="0.9" Duration="0:0:0.3"/>
+        <ThicknessAnimation Storyboard.TargetProperty="Margin" From="10,5,10,10" To="10,-100,10,10" DecelerationRatio="0.9" Duration="0:0:0.3"/>
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" DecelerationRatio="0.9" Duration="0:0:0.3"/>
     </Storyboard>
 
     <Storyboard x:Key="ShowPanel">
         <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-1600,0,0,0" To="0,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.3"/>
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" DecelerationRatio="0.9" Duration="0:0:0.3"/>
     </Storyboard>
     <Storyboard x:Key="HidePanel">
         <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-1600,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.3"/>
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" DecelerationRatio="0.9" Duration="0:0:0.3"/>
     </Storyboard>
     
     <ControlTemplate TargetType="ToggleButton" x:Key="ComboBoxToggleButtonTemplate">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="25" />
             </Grid.ColumnDefinitions>
             <Border Grid.ColumnSpan="2" Name="Border"
               BorderBrush="{StaticResource BrightBackgroundBrush}" 
               CornerRadius="0" BorderThickness="1, 1, 1, 1" 
               Background="{StaticResource BrightBackgroundBrush}" />
-            <Border Grid.Column="1" Margin="1, 1, 1, 1" BorderBrush="#444" Name="ButtonBorder"
+            <Border Grid.Column="1" Margin="1, 1, 1, 1" BorderBrush="{StaticResource MagentaTextBrush}" Name="ButtonBorder"
               CornerRadius="0, 0, 0, 0" BorderThickness="0, 0, 0, 0" 
-              Background="{StaticResource BrightBackgroundBrush}" />
+              Background="{StaticResource BrightBackgroundBrush}"/>
 
-            <Path Name="Arrow" Grid.Column="1" 
-            Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
-            HorizontalAlignment="Center" Fill="{StaticResource DarkerTextBrush}"
-            VerticalAlignment="Center" />
+            <TextBlock Grid.Column="1" Text="" Name="Arrow"
+                       FontFamily="{StaticResource FA5}"
+                       FontSize="14"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource MagentaTextBrush}"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="UIElement.IsMouseOver" Value="True">
-                <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="{StaticResource DarkerTextBrush}"/>
-                <Setter Property="Shape.Fill" TargetName="Arrow" Value="{StaticResource BaseBackgroundBrush}"/>
+                <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="{StaticResource MagentaTextBrush}"/>
+                <Setter TargetName="Arrow" Property="TextElement.Foreground" Value="{StaticResource BrightBackgroundBrush}"/>
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="True">
-                <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="{StaticResource DarkerTextBrush}"/>
-                <Setter Property="Shape.Fill" TargetName="Arrow" Value="{StaticResource BrightBackgroundBrush}"/>
+                <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="{StaticResource BrightBackgroundBrush}"/>
+                <Setter TargetName="Arrow" Property="TextElement.Foreground" Value="{StaticResource BrightBackgroundBrush}"/>
             </Trigger>
             <Trigger Property="UIElement.IsEnabled" Value="False">
-                <Setter Property="TextElement.Foreground" Value="{StaticResource ComboBoxDisabledForegroundBrush}"/>
-                <Setter Property="Shape.Fill" TargetName="Arrow" Value="#444"/>
+                <Setter TargetName="Arrow" Property="TextElement.Foreground" Value="{StaticResource BrightBackgroundBrush}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <Style x:Key="{x:Type ComboBoxItem}"
+       TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels"
+          Value="true" />
+        <Setter Property="OverridesDefaultStyle"
+          Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="Border" Padding="0, 5, 30, 5"
+                            Background="{StaticResource BrightBackgroundBrush}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                                                (SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource BrightBackgroundColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                                                (SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource BaseTextColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                                                (SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource OnHoverItemColor}"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Normal">
+                                    <!-- похуй !-->
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter HorizontalAlignment="Right" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="Weabox"  TargetType="{x:Type ComboBox}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -117,7 +283,8 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-        <Setter Property="TextElement.Foreground" Value="{StaticResource ResourceKey=DarkerTextBrush}"/>
+        <Setter Property="TextElement.Foreground" Value="{StaticResource ResourceKey=MagentaTextBrush}"/>
+        <Setter Property="TextElement.FontSize" Value="{StaticResource ResourceKey=Regular}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -131,8 +298,8 @@
                             IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                             Template="{StaticResource ComboBoxToggleButtonTemplate}"/>
 
-                        <ContentPresenter x:Name="ContentSite" Margin="5, 3, 23, 3" IsHitTestVisible="False"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"                              
+                        <ContentPresenter x:Name="ContentSite" Margin="5, 3, 30, 3" IsHitTestVisible="False"
+                            HorizontalAlignment="Right" VerticalAlignment="Center"                         
                             Content="{TemplateBinding SelectionBoxItem}" 
                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
@@ -140,7 +307,7 @@
                         <TextBox x:Name="PART_EditableTextBox" Margin="3, 3, 23, 3"                     
                             IsReadOnly="{TemplateBinding IsReadOnly}"
                             Visibility="Hidden" Background="Transparent"
-                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                            HorizontalAlignment="Right" VerticalAlignment="Center"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             Focusable="True" >
@@ -154,16 +321,18 @@
                         <Popup x:Name="Popup" Placement="Bottom"
                             Focusable="False" AllowsTransparency="True"
                             IsOpen="{TemplateBinding IsDropDownOpen}"
-                            PopupAnimation="Slide">
+                            PopupAnimation="Slide"
+                            >
                             <Grid x:Name="DropDown" SnapsToDevicePixels="True"
                                 MinWidth="{TemplateBinding ActualWidth}"
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                <Border x:Name="DropDownBorder" Background="{StaticResource BrightBackgroundBrush}" Margin="0, 1, 0, 0"
-                                    CornerRadius="0" BorderThickness="1,1,1,1" 
-                                    BorderBrush="{StaticResource BrightBackgroundBrush}"/>
-                                <ScrollViewer Margin="4" SnapsToDevicePixels="True">
-                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
-                                </ScrollViewer>
+                                <Border x:Name="DropDownBorder" Margin="0, 0, 0, 0"
+                                    CornerRadius="3" BorderThickness="1,1,1,1" 
+                                    BorderBrush="{StaticResource OnHoverItemBrush}">
+                                    <ScrollViewer Margin="0" SnapsToDevicePixels="True">
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Border>
                             </Grid>
                         </Popup>
                     </Grid>
@@ -185,12 +354,12 @@
         </Setter>
         <Setter Property="Width" Value="120"/>
         <Setter Property="Height" Value="40"/>
-        <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
+        <Setter Property="FontFamily" Value="{StaticResource SansBold}"/>
         <Setter Property="FontSize" Value="{StaticResource Small}"/>
         <Setter Property="Background" Value="{StaticResource BrightBackgroundBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource DarkerTextBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource MagentaTextBrush}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
     </Style>
 
 </ResourceDictionary>

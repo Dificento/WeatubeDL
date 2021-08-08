@@ -2,8 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     >
-
-    <FontFamily x:Key="DefaultFont">Cascadia Code</FontFamily>
+    <FontFamily x:Key="DefaultFont">pack://application:,,,/Properties/Fonts/#PT Sans</FontFamily>
+    <FontFamily x:Key="SansBold">pack://application:,,,/Properties/Fonts/#PT Sans Bold</FontFamily>
+    <FontFamily x:Key="SansItalics">pack://application:,,,/Properties/Fonts/#PT Sans Italic</FontFamily>
+    <FontFamily x:Key="FA5">pack://application:,,,/Properties/Fonts/#Font Awesome 5 Free Solid</FontFamily>
     <system:Double x:Key="Regular">16</system:Double>
     <system:Double x:Key="Small">14</system:Double>
 </ResourceDictionary>

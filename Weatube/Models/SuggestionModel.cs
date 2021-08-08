@@ -17,6 +17,8 @@ namespace Weatube.Models
 
         public string SuggestedVideoName { get; set; }
 
+        public string SuggestedServiceType { get; set; }
+
         public bool IsEnabled { get; set; }
 
         public SuggestionModel(YoutubeDL ydl)
@@ -27,6 +29,7 @@ namespace Weatube.Models
             SuggestedTypes = ydl.Type == YoutubeDL.YoutubeDLRequestType.YOUTUBEDL_REQUEST_TYPE_SINGLE
           ? ydl.VideoList[0].AvailableFormats : new List<YoutubeDL.Video.OutputFormat>() { ydl.VideoList[0].SelectedFormat };
             SelectedType = ydl.VideoList[0].SelectedFormat;
+            SuggestedServiceType = ydl.VideoList[0].Type.ToUpper();
             IsEnabled = true;
         }
 

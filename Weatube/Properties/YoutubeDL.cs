@@ -377,13 +377,13 @@ namespace Weatube
 				/// </summary>
 				public OutputFormat(string name, FormatType type)
 				{
-					Name = name;
+					Name = name.ToUpper();
 					Type = type;
 				}
 
 				public virtual string GetCommand()
 				{
-					return Name;
+					return Name.ToLower();
 				}
 
 				/* -- */
