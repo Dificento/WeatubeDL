@@ -37,7 +37,7 @@ namespace Weatube
 			public string format_note;
 			public string ext;
 			public int? fps;
-			public int? filesize;
+			public long? filesize;
 		}
 
 		public RawThumbnail[] thumbnails;
@@ -46,7 +46,7 @@ namespace Weatube
 		public string fulltitle;
 
 		public string description;
-		public int duration;
+		public float duration;
 
 		public string id;
 		public string webpage_url; // URL of webpage for video
