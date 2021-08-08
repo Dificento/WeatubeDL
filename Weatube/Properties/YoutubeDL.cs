@@ -12,13 +12,10 @@ using WebPWrapper;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 
-namespace Weatube
-{
+namespace Weatube {
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
-	public class RawYTDLVideo
-	{
-		public class RawThumbnail
-		{
+	public class RawYTDLVideo {
+		public class RawThumbnail {
 			public int height;
 			public int width;
 			public string id;
@@ -26,8 +23,7 @@ namespace Weatube
 			public string url;
 		}
 
-		public class RawFormat
-		{
+		public class RawFormat {
 			public string format_id;
 			public int? height;
 			public int? width;
@@ -44,6 +40,7 @@ namespace Weatube
 
 		public string channel;
 		public string fulltitle;
+		public string uploader;
 
 		public string description;
 		public float duration;
@@ -57,10 +54,8 @@ namespace Weatube
 		public string playlist; // Playlist name if present
 	}
 
-	internal class ThumbnailComparer : IComparer<RawYTDLVideo.RawThumbnail>
-	{
-		public int Compare(RawYTDLVideo.RawThumbnail x, RawYTDLVideo.RawThumbnail y)
-		{
+	internal class ThumbnailComparer : IComparer<RawYTDLVideo.RawThumbnail> {
+		public int Compare(RawYTDLVideo.RawThumbnail x, RawYTDLVideo.RawThumbnail y) {
 			if (ReferenceEquals(x, y)) return 0;
 			if (ReferenceEquals(null, y)) return 1;
 			if (ReferenceEquals(null, x)) return -1;
@@ -71,16 +66,14 @@ namespace Weatube
 	/// <summary>
 	/// Класс обработки новой ссылки через YoutubeDL и получения <see cref="Video"/>, адресуемых по ней
 	/// </summary>
-	public class YoutubeDL
-	{
+	public class YoutubeDL {
 		private static string DefaultPlaylistName = "Playlist";
 		private static Bitmap DefaultPlaylistThumbnail = null;
 
 		public YoutubeDLRequestType Type { get; private set; }
 		public Bitmap Thumbnail { get; private set; }
 
-		public ImageSource ImageSourceFromBitmap()
-		{
+		public ImageSource ImageSourceFromBitmap() {
 			MemoryStream ms = new MemoryStream();
 			Thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
 			BitmapImage image = new BitmapImage();
@@ -91,6 +84,7 @@ namespace Weatube
 			image.Freeze();
 			return image;
 		}
+
 		public string Name { get; private set; }
 
 		/// <summary>
@@ -118,8 +112,7 @@ namespace Weatube
 		/// Для инициализации (загрузки видео по ссылке) использовать <see cref="Init"/> и <see cref="InitAsync"/>
 		/// </summary>
 		/// <param name="sourceUrl"></param>
-		public YoutubeDL(string sourceUrl)
-		{
+		public YoutubeDL(string sourceUrl) {
 			SourceUrl = sourceUrl;
 			Initialized = false;
 			_videoList = new List<Video>();
@@ -128,8 +121,7 @@ namespace Weatube
 		/// <summary>
 		/// Создает и асинхронно инициализирует и возвращает новый объект <see cref="YoutubeDL"/>
 		/// </summary>
-		public static async Task<YoutubeDL> ConstructAndInit(string sourceUrl)
-		{
+		public static async Task<YoutubeDL> ConstructAndInit(string sourceUrl) {
 			var youtubeDL = new YoutubeDL(sourceUrl);
 			await youtubeDL.InitAsync();
 			return youtubeDL;
@@ -139,16 +131,13 @@ namespace Weatube
 		/// Асинхронная версия <see cref="Init"/>
 		/// </summary>
 		/// <returns></returns>
-		public async Task<IEnumerable<Video>> InitAsync()
-		{
+		public async Task<IEnumerable<Video>> InitAsync() {
 			var output = await Task.Run(Init);
 			return output;
 		}
 
-		public static Process RunProcess(string arguments)
-		{
-			var startInfo = new ProcessStartInfo
-			{
+		public static Process RunProcess(string arguments) {
+			var startInfo = new ProcessStartInfo {
 				FileName = "youtube-dl.exe",
 				Arguments = arguments,
 				CreateNoWindow = true,
@@ -166,16 +155,14 @@ namespace Weatube
 		/// Открывает процесс YoutubeDL и перехватывает вывод в <see cref="RawOutput"/>
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerable<Video> Init()
-		{
+		public IEnumerable<Video> Init() {
 			// Создаем процесс
 			var process = RunProcess("--simulate --print-json " + SourceUrl);
 
 			// Создаем ОБЪЕКТ
 			string output;
 			_rawYtdlVideos = new List<RawYTDLVideo>();
-			while ((output = process.StandardOutput.ReadLine()) != null)
-			{
+			while ((output = process.StandardOutput.ReadLine()) != null) {
 				var m = JsonConvert.DeserializeObject<RawYTDLVideo>(output);
 				if (m == null) continue;
 				_rawYtdlVideos.Add(m);
@@ -185,12 +172,10 @@ namespace Weatube
 			_videoList = new List<Video>();
 			var taskList = new List<Task>();
 
-			foreach (var rawVideo in _rawYtdlVideos)
-			{
+			foreach (var rawVideo in _rawYtdlVideos) {
 				var availableFormats = new HashSet<Video.NormalOutputFormat>();
 				// Parse formats
-				foreach (var rawFormat in rawVideo.formats)
-				{
+				foreach (var rawFormat in rawVideo.formats) {
 					if (rawFormat.width == null || rawFormat.height == null) continue;
 					var format = new Video.NormalOutputFormat(rawFormat.width.Value, rawFormat.height.Value);
 					availableFormats.Add(format);
@@ -213,8 +198,7 @@ namespace Weatube
 				var stream = response.GetResponseStream();
 				MemoryStream seekableMemStream = new MemoryStream();
 				stream.CopyTo(seekableMemStream);
-				switch (response.ContentType)
-				{
+				switch (response.ContentType) {
 					case "image/webp":
 						var rawWebP = seekableMemStream.ToArray();
 						using (var webp = new WebP())
@@ -231,21 +215,25 @@ namespace Weatube
 						throw new Exception($"Unsupported format {response.ContentType}");
 				}
 
-				var video = new Video(rawVideo.fulltitle, rawVideo.extractor_key, rawVideo.webpage_url, sortableFormats,
-					thumbnail);
+				var video = new Video(
+					rawVideo.fulltitle,
+					rawVideo.extractor_key,
+					rawVideo.webpage_url,
+					rawVideo.uploader,
+					sortableFormats,
+					thumbnail
+				);
 				_videoList.Add(video);
 			}
 
 
 			// fill main object
-			if (_videoList.Count > 1)
-			{
+			if (_videoList.Count > 1) {
 				Type = YoutubeDLRequestType.YOUTUBEDL_REQUEST_TYPE_PLAYLIST;
 				Name = _rawYtdlVideos[0].playlist ?? DefaultPlaylistName;
 				Thumbnail = _videoList[0].Thumbnail ?? DefaultPlaylistThumbnail;
 			}
-			else if (_videoList.Count == 1)
-			{
+			else if (_videoList.Count == 1) {
 				Type = YoutubeDLRequestType.YOUTUBEDL_REQUEST_TYPE_SINGLE;
 				Name = _videoList[0].Name;
 				Thumbnail = _videoList[0].Thumbnail;
@@ -260,14 +248,12 @@ namespace Weatube
 
 		/* -- */
 
-		public enum YoutubeDLRequestType
-		{
+		public enum YoutubeDLRequestType {
 			YOUTUBEDL_REQUEST_TYPE_PLAYLIST,
 			YOUTUBEDL_REQUEST_TYPE_SINGLE,
 		}
 
-		public class Video
-		{
+		public class Video {
 			/// <summary>
 			/// Список форматов экспорта, доступных каждому видео
 			/// </summary>
@@ -289,6 +275,11 @@ namespace Weatube
 			/// </summary>
 			public string Name { get; }
 
+			/// <summary>
+			/// Имя загрузившего
+			/// </summary>
+			public string Uploader { get; }
+
 			private readonly List<OutputFormat> _availableFormats;
 			public IList<OutputFormat> AvailableFormats => _availableFormats.AsReadOnly();
 			public OutputFormat SelectedFormat;
@@ -298,8 +289,7 @@ namespace Weatube
 			/// </summary>
 			public Bitmap Thumbnail { get; }
 
-			public ImageSource ImageSourceFromBitmap()
-			{
+			public ImageSource ImageSourceFromBitmap() {
 				MemoryStream ms = new MemoryStream();
 				Thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
 				BitmapImage image = new BitmapImage();
@@ -310,11 +300,13 @@ namespace Weatube
 				image.Freeze();
 				return image;
 			}
-			public Video(string name, string type, string source, IEnumerable<OutputFormat> availableFormats,
-				Bitmap thumbnail)
-			{
+
+			public Video(string name, string type, string source, string uploader,
+				IEnumerable<OutputFormat> availableFormats,
+				Bitmap thumbnail) {
 				Name = name;
 				Type = type;
+				Uploader = uploader;
 				Source = source;
 				_availableFormats = new List<OutputFormat>(DefaultFormats);
 				_availableFormats.AddRange(availableFormats);
@@ -326,10 +318,8 @@ namespace Weatube
 			/// Получить список аргументов для экспорта видео через youtube-dl
 			/// </summary>
 			/// <param name="filename">имя файла для сохранения видео</param>
-			public string GetCommandArguments(string filename)
-			{
-				var args = GetCommandArguments() + " -o \"" + filename + "\"";
-
+			public string GetCommandArguments(string filename) {
+				var args = GetCommandArguments() + " --embed-thumbnail --add-metadata --xattrs -o \"" + filename + "\"";
 				return args;
 			}
 
@@ -337,15 +327,14 @@ namespace Weatube
 			/// <summary>
 			/// Получить список аргументов для экспорта видео через youtube-dl
 			/// </summary>
-			public string GetCommandArguments()
-			{
-				switch (SelectedFormat.Type)
-				{
+			public string GetCommandArguments() {
+				switch (SelectedFormat.Type) {
 					case OutputFormat.FormatType.FormatTypeNormal:
 						return "-f \"" + SelectedFormat.GetCommand() + "\"" + " " + Source;
 					case OutputFormat.FormatType.FormatTypeAudioOnly:
 						return "--extract-audio --audio-format \"" + SelectedFormat.GetCommand() + "\"" + " " + Source;
 				}
+
 				return null;
 			}
 
@@ -354,10 +343,8 @@ namespace Weatube
 			/// <summary>
 			/// Класс для определения формата экспорта найденных видео
 			/// </summary>
-			public class OutputFormat : IComparable<OutputFormat>
-			{
-				public enum FormatType
-				{
+			public class OutputFormat : IComparable<OutputFormat> {
+				public enum FormatType {
 					/// <summary>
 					/// Тип формата, который определяет качество аудио и видео одновременно (например, <b>best</b>)
 					/// </summary>
@@ -375,39 +362,33 @@ namespace Weatube
 				/// <summary>
 				/// Создание уникального формата с именем
 				/// </summary>
-				public OutputFormat(string name, FormatType type)
-				{
+				public OutputFormat(string name, FormatType type) {
 					Name = name.ToUpper();
 					Type = type;
 				}
 
-				public virtual string GetCommand()
-				{
+				public virtual string GetCommand() {
 					return Name.ToLower();
 				}
 
 				/* -- */
 
-				public override bool Equals(object obj)
-				{
+				public override bool Equals(object obj) {
 					//Check for null and compare run-time types.
 					if (obj == null || GetType() != obj.GetType()) return false;
-					var p = (OutputFormat)obj;
+					var p = (OutputFormat) obj;
 					return Name.Equals(p.Name);
 				}
 
-				public override int GetHashCode()
-				{
+				public override int GetHashCode() {
 					return Name.GetHashCode();
 				}
 
-				public virtual int CompareTo(OutputFormat outputFormat)
-				{
+				public virtual int CompareTo(OutputFormat outputFormat) {
 					return string.Compare(Name, outputFormat.Name, StringComparison.Ordinal);
 				}
 
-				public override string ToString()
-				{
+				public override string ToString() {
 					return Name;
 				}
 			}
@@ -415,8 +396,7 @@ namespace Weatube
 			/// <summary>
 			/// Класс для определения формата экспорта только звуковой дорожки
 			/// </summary>
-			public class AudioOutputFormat : OutputFormat
-			{
+			public class AudioOutputFormat : OutputFormat {
 				/// <summary>
 				/// Создание формата по расширению выходного аудио
 				/// </summary>
@@ -426,8 +406,7 @@ namespace Weatube
 			/// <summary>
 			/// Класс для определеиня формата экспорта видео+аудио с выбором разрешения кадра
 			/// </summary>
-			public class NormalOutputFormat : OutputFormat
-			{
+			public class NormalOutputFormat : OutputFormat {
 				public int Width { get; }
 				public int Height { get; }
 
@@ -435,8 +414,7 @@ namespace Weatube
 				/// Создание формата по паре параметров: ширина и высота
 				/// </summary>
 				public NormalOutputFormat(int width, int height) : base($"{width}x{height}",
-					FormatType.FormatTypeNormal)
-				{
+					FormatType.FormatTypeNormal) {
 					Width = width;
 					Height = height;
 				}
@@ -445,19 +423,17 @@ namespace Weatube
 				/// Достать "функциональную" строку из формата (для использования в качестве аргумента -f для youtube-dl)
 				/// Принимает значение имени, если width/height пустые
 				/// </summary>
-				public override string GetCommand()
-				{
+				public override string GetCommand() {
 					return (Height == -1 || Width == -1)
 						? base.GetCommand()
 						: $"best[width<={Width}][height<={Height}]";
 				}
 
-				public override int CompareTo(OutputFormat outputFormat)
-				{
+				public override int CompareTo(OutputFormat outputFormat) {
 					// Форматы видео будут сортироваться по убыванию высоты видео
 					return typeof(NormalOutputFormat) != outputFormat.GetType()
 						? base.CompareTo(outputFormat)
-						: ((NormalOutputFormat)outputFormat).Height.CompareTo(Height);
+						: ((NormalOutputFormat) outputFormat).Height.CompareTo(Height);
 				}
 			}
 		}
