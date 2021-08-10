@@ -48,6 +48,7 @@ namespace Weatube {
 		public string id;
 		public string webpage_url; // URL of webpage for video
 		public string extractor_key; // Nice extractor name
+		public string ext; // Default ext with format download
 
 		public RawFormat[] formats; // List of all available formats to download
 
@@ -220,6 +221,7 @@ namespace Weatube {
 					rawVideo.extractor_key,
 					rawVideo.webpage_url,
 					rawVideo.uploader,
+					rawVideo.ext == "mp3",
 					sortableFormats,
 					thumbnail
 				);
@@ -280,6 +282,11 @@ namespace Weatube {
 			/// </summary>
 			public string Uploader { get; }
 
+			/// <summary>
+			/// Видео? Нет - аудио
+			/// </summary>
+			public bool IsVideo { get; }
+
 			private readonly List<OutputFormat> _availableFormats;
 			public IList<OutputFormat> AvailableFormats => _availableFormats.AsReadOnly();
 			public OutputFormat SelectedFormat;
@@ -301,13 +308,14 @@ namespace Weatube {
 				return image;
 			}
 
-			public Video(string name, string type, string source, string uploader,
+			public Video(string name, string type, string source, string uploader, bool isVideo,
 				IEnumerable<OutputFormat> availableFormats,
 				Bitmap thumbnail) {
 				Name = name;
 				Type = type;
 				Uploader = uploader;
 				Source = source;
+				IsVideo = isVideo;
 				_availableFormats = new List<OutputFormat>(DefaultFormats);
 				_availableFormats.AddRange(availableFormats);
 				SelectedFormat = _availableFormats[0];
@@ -319,7 +327,10 @@ namespace Weatube {
 			/// </summary>
 			/// <param name="filename">имя файла для сохранения видео</param>
 			public string GetCommandArguments(string filename) {
-				var args = GetCommandArguments() + " --embed-thumbnail --add-metadata --xattrs -o \"" + filename + "\"";
+				var args = 
+					GetCommandArguments() + 
+					(!IsVideo ? " --embed-thumbnail " : "") + // не видео - докачиваем превью
+					" --add-metadata --xattrs -o \"" + filename + "\"";
 				return args;
 			}
 
