@@ -7,8 +7,8 @@
     <SolidColorBrush x:Key="BrightBackgroundBrush" Color="#fff"/>
     <Color x:Key="BrightBackgroundColor">#fff</Color>
 
-    <SolidColorBrush x:Key="OutlineBrush" Color="#999999"/>
-    <Color x:Key="OutlineColor">#999999</Color>
+    <SolidColorBrush x:Key="OutlineBrush" Color="#e5e5e5"/>
+    <Color x:Key="OutlineColor">#e5e5e5</Color>
 
     <SolidColorBrush x:Key="BaseTextBrush" Color="#333333"/>
     <Color x:Key="BaseTextColor">#333333</Color>

@@ -14,13 +14,13 @@ namespace Weatube.Viewmodels
 {
     class WeatubeViewModel : NotifyPropertyChangedBehavior
     {
-        public ObservableCollection<VideoModel> QueuedVideos { get; set; }
+        public ObservableCollection<VideoModel> QueuedVideos { get; private set; }
 
-        public SuggestionModel suggestion { get; set; }
+        public SuggestionModel suggestion { get; private set; }
 
         private string _SearchVideo { get; set; }
 
-        public string _SaveDirectoryPath { get; set; }
+        public string _SaveDirectoryPath { get; private set; }
         public string SaveDirectoryPath 
         { 
             get
@@ -34,6 +34,10 @@ namespace Weatube.Viewmodels
             }
         }
 
+        private List<string> _MessageOfTheDay;
+
+        public string MessageOfTheDay { get { return _MessageOfTheDay.OrderBy(x => Guid.NewGuid()).FirstOrDefault(); } }
+
         public string SearchVideo
         {
             get => _SearchVideo;
@@ -41,7 +45,7 @@ namespace Weatube.Viewmodels
             {
                 _SearchVideo = value;
                 _ = Task.Run(async () =>
-                  {
+                {
                       if (_SearchVideo.Length < 1)
                       {
                           suggestion.Disable();
@@ -60,10 +64,9 @@ namespace Weatube.Viewmodels
                       var vid = new YoutubeDL(_SearchVideo);
                       if (await vid.InitAsync() != null)
                           if (_SearchVideo == vid.SourceUrl) suggestion = new SuggestionModel(vid);
-                  });
+                });
             }
         }
-
 
         public WeatubeViewModel()
         {
@@ -72,6 +75,7 @@ namespace Weatube.Viewmodels
             _SaveDirectoryPath = (Settings.Default.DefaultSavePath.Length > 0) 
                 ? Settings.Default.DefaultSavePath
                 : Path.Combine(Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%"), "Downloads");
+            _MessageOfTheDay = Resources.motd.Split('\n').ToList();
         }
 
         public ICommand AddVideo => 
@@ -100,14 +104,8 @@ namespace Weatube.Viewmodels
                     var path = SaveDirectoryPath + '\\';
                     foreach (var f in Directory.GetFiles(path, "*.part"))
                     {
-                        try
-                        {
-                            File.Delete(f);
-                        }
-                        catch
-                        {
-                            Console.WriteLine("похуй...");
-                        }
+                        try { File.Delete(f); }
+                        catch { Console.WriteLine("похуй..."); }
                     }
                 });
 #pragma warning restore CS4014
@@ -123,9 +121,8 @@ namespace Weatube.Viewmodels
                     var filename = SaveDirectoryPath + '\\' + "%(title)s.%(ext)s";
                     var process = vid.DownloadProcess = YoutubeDL.RunProcess(vid.YoutubeVideo.GetCommandArguments(filename));
                     while (!process.HasExited)
-                        vid.DownloadState =
-                        Utils.DownloadStateChange(Utils.PercentFromOutput(await process.StandardOutput.ReadLineAsync()));
-                    if(!File.Exists(filename))
+                        vid.DownloadStateChange(await process.StandardOutput.ReadLineAsync());
+                    if(!File.Exists(vid.SavePath))
                         vid.DownloadState = 
                             Utils.DownloadStateChange(Utils.PercentFromOutput(null, await process.StandardError.ReadLineAsync()));
                     vid.IsDownloaded = true;
@@ -154,5 +151,12 @@ namespace Weatube.Viewmodels
                     SaveDirectoryPath = dialog.SelectedPath;
             }, () => true);
 
+        public ICommand OpenFileInExplorer =>
+            new DelegateCommand<VideoModel>((video) =>
+            {
+                if (video.SavePath != null)
+                    System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", video.SavePath.Replace(@"\\", @"\")));
+                else System.Diagnostics.Process.Start("explorer.exe", Settings.Default.DefaultSavePath);
+            }, (video) => video != null && video.IsDownloaded == true);
     }
 }

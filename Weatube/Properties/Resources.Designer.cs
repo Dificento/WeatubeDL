@@ -101,6 +101,33 @@ namespace Weatube.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Проходи, не задерживайся
+        ///Can you hear me?
+        ///Also try Ummy Video Downloader (please don&apos;t)
+        ///There&apos;s no escape
+        ///Blaze your way down the rebel path!
+        ///A thing of beauty...
+        ///hxppy thxughts
+        ///Just Monika
+        ///i am the bone of my sword...
+        ///El, Psy, Kongroo
+        ///padoru padoru
+        ///Let the flame guide thee
+        ///Here comes Johnny!
+        ///Hey, Monika
+        ///Вот, смотрите, видео не на месте...
+        ///(Don&apos;t forget to download this:) https://www.youtube.com/watch?v=dQw4w9WgXcQ
+        ///[ДАННЫЕ УДАЛЕНЫ]
+        ///[REDACTED]
+        ///Everyday i imagine a future where i can be with [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string motd {
+            get {
+                return ResourceManager.GetString("motd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] PTSans_Bold {

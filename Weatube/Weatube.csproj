@@ -171,6 +171,7 @@
     <Resource Include="Properties\Fonts\PTSans-Italic.ttf" />
     <Resource Include="Properties\Fonts\PTSans-Regular.ttf" />
     <Resource Include="Properties\Fonts\Font_Awesome_5.otf" />
+    <Resource Include="Properties\motd.txt" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

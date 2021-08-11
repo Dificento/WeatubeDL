@@ -29,7 +29,7 @@
             <DockPanel Panel.ZIndex="1" Background="{StaticResource BrightBackgroundBrush}">
                 <Border
                     BorderThickness="1"
-                    BorderBrush="#e5e5e5"
+                    BorderBrush="{StaticResource OutlineBrush}"
                     Margin="10,10,10,5"
                     >      
                     <Grid>
@@ -47,7 +47,7 @@
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Left" 
                         Margin="10,0,0,0" 
-                        Foreground="{StaticResource OutlineBrush}">
+                        Foreground="#999999">
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -66,7 +66,7 @@
             <Grid Grid.Row="1" Background="{StaticResource BrightBackgroundBrush}">
                 <Border
                     BorderThickness="1"
-                    BorderBrush="#e5e5e5"
+                    BorderBrush="{StaticResource OutlineBrush}"
                     Margin="10,5,10,10"
                     >
                     <DockPanel
@@ -134,13 +134,21 @@
 
         <Grid Grid.Row="1" Background="{StaticResource BrightBackgroundBrush}" Height="46" VerticalAlignment="Top">
             <DockPanel>
-                <TextBlock
+                <Label
+                    MaxWidth="550"
                     VerticalAlignment="Center"
                     FontSize="20"
                     FontFamily="{StaticResource SansBold}"
                     Foreground="{StaticResource BaseTextBrush}"
                     Margin="10,0"
-                    Text="Here's all the shit you've added..."/>
+                    >
+                    <TextBlock
+                        Text="{Binding MessageOfTheDay}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap"/>
+
+                </Label>
+
 
                 <Button
                     Style="{StaticResource FolderButton}"
@@ -178,7 +186,7 @@
                                     <Border
                                         Height="65"
                                         BorderThickness="1"
-                                        BorderBrush="#e5e5e5"
+                                        BorderBrush="{StaticResource OutlineBrush}"
                                         Margin="1"
                                         >
                                         <DockPanel>
@@ -197,29 +205,41 @@
                                                     Text="{Binding Name}"/>
                                             </StackPanel>
                                             <DockPanel HorizontalAlignment="Right">
-                                                <ComboBox
-                                                        Style="{StaticResource Weabox}"
-                                                        Width="120"
-                                                        Height="40"
-                                                        HorizontalAlignment="Right"
-                                                        VerticalAlignment="Center"
-                                                        ItemsSource="{Binding outputFormats}"
-                                                        SelectedItem="{Binding selectedFormat, Mode=TwoWay}"
-                                                        />
                                                 <Button
-                                                        Style="{StaticResource CloseButton}"
-                                                        Command="{Binding ElementName=VideoItems, Path=DataContext.DeleteVideo}"
-                                                        CommandParameter="{Binding}"
-                                                        HorizontalContentAlignment="Center"
-                                                        VerticalContentAlignment="Center"
-                                                        >
+                                                    Style="{StaticResource FolderButton}"
+                                                    Width="40"
+                                                    Height="40"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    FontFamily="{StaticResource FA5}"
+                                                    Content=""
+                                                    FontSize="18"
+                                                    Command="{Binding ElementName=VideoItems, Path=DataContext.OpenFileInExplorer}"
+                                                    CommandParameter="{Binding}"
+                                                    />
+                                                <ComboBox
+                                                    Style="{StaticResource Weabox}"
+                                                    Width="120"
+                                                    Height="40"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    ItemsSource="{Binding outputFormats}"
+                                                    SelectedItem="{Binding selectedFormat, Mode=TwoWay}"
+                                                    />
+                                                <Button
+                                                    Style="{StaticResource CloseButton}"
+                                                    Command="{Binding ElementName=VideoItems, Path=DataContext.DeleteVideo}"
+                                                    CommandParameter="{Binding}"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    >
                                                     <TextBlock
-                                                            Text=""
-                                                            VerticalAlignment="Center"
-                                                            HorizontalAlignment="Center"
-                                                            Foreground="{StaticResource BaseTextBrush}"
-                                                            FontSize="{StaticResource Small}"
-                                                            FontFamily="{StaticResource FA5}"/>
+                                                        Text=""
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Center"
+                                                        Foreground="{StaticResource BaseTextBrush}"
+                                                        FontSize="{StaticResource Small}"
+                                                        FontFamily="{StaticResource FA5}"/>
                                                 </Button>
                                             </DockPanel>
                                         </DockPanel>
@@ -241,7 +261,7 @@
         <Grid Grid.Row="3" Background="{StaticResource BrightBackgroundBrush}">
             <Border
                      BorderThickness="0,1,0,0"
-                    BorderBrush="#e5e5e5">
+                    BorderBrush="{StaticResource OutlineBrush}">
                 <DockPanel>
                     <Button Style="{StaticResource FolderButton}"
                             FontFamily="{StaticResource FA5}"

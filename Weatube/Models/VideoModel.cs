@@ -27,9 +27,12 @@ namespace Weatube.Models
             set
             {
                 if (value && DownloadProcess != null && !DownloadProcess.HasExited) DownloadProcess.Kill();
+                if (!value) DownloadState = Utils.DownloadStateChange(0d);
                 _IsDownloaded = value;
             }
         }
+
+        public string SavePath { get; private set; }
 
         public ObservableCollection<YoutubeDL.Video.OutputFormat> outputFormats { get; set; }
 
@@ -43,7 +46,7 @@ namespace Weatube.Models
             }
             set
             {
-                if (YoutubeVideo != null) YoutubeVideo.SelectedFormat = value;
+                if (YoutubeVideo != null) { YoutubeVideo.SelectedFormat = value; IsDownloaded = false; }
             }
         }
 
@@ -76,5 +79,15 @@ namespace Weatube.Models
             System.Console.WriteLine(DownloadProcess?.ExitCode);
         }
 
+        public void DownloadStateChange(string data)
+        {
+            if (data == null) return;
+            if (data.Contains("Destination:")) SavePath = data.Split(new char[] { ':' }, 2)[1].Trim();
+            else
+            {
+                var pc = Utils.PercentFromOutput(data);
+                DownloadState = Utils.DownloadStateChange(pc);
+            }
+        }
     }
 }
