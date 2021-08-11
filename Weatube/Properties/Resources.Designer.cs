@@ -63,6 +63,16 @@ namespace Weatube.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] AtomicParsley {
+            get {
+                object obj = ResourceManager.GetObject("AtomicParsley", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] ffmpeg {
             get {
                 object obj = ResourceManager.GetObject("ffmpeg", resourceCulture);
@@ -116,10 +126,11 @@ namespace Weatube.Properties {
         ///Here comes Johnny!
         ///Hey, Monika
         ///Вот, смотрите, видео не на месте...
-        ///(Don&apos;t forget to download this:) https://www.youtube.com/watch?v=dQw4w9WgXcQ
+        ///https://www.youtube.com/watch?v=dQw4w9WgXcQ
         ///[ДАННЫЕ УДАЛЕНЫ]
         ///[REDACTED]
-        ///Everyday i imagine a future where i can be with [rest of string was truncated]&quot;;.
+        ///Everyday i imagine a future where i can be with you
+        ///Ночной киоск, ночной киоск. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string motd {
             get {
