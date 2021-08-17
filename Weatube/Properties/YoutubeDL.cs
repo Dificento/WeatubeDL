@@ -158,7 +158,7 @@ namespace Weatube {
 		/// <returns></returns>
 		public IEnumerable<Video> Init() {
 			// Создаем процесс
-			var process = RunProcess("--simulate --print-json --no-check-certificate" + SourceUrl);
+			var process = RunProcess("--simulate --print-json --no-check-certificate " + "\"" + SourceUrl + "\"");
 
 			// Создаем ОБЪЕКТ
 			string output;
