@@ -80,7 +80,7 @@ namespace Weatube.Viewmodels
                 ? Settings.Default.DefaultSavePath
                 : Path.Combine(Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%"), "Downloads");
             _MessageOfTheDay = Resources.motd.Split('\n').ToList();
-            if (MessageOfTheDay == "Just Monika")
+            if (MessageOfTheDay.Contains("Monika"))
             {
                 var dialog = new Window1();
                 dialog.ShowDialog();
