@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Aller_Rg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Fonts\Aller-Rg.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="AtomicParsley" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\AtomicParsley.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -144,6 +147,9 @@
   </data>
   <data name="PTSans_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Fonts\PTSans-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RifficFree_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Fonts\RifficFree-Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="youtube_dl" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\youtube-dl.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

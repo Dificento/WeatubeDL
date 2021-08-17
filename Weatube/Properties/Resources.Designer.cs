@@ -63,6 +63,16 @@ namespace Weatube.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Aller_Rg {
+            get {
+                object obj = ResourceManager.GetObject("Aller_Rg", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] AtomicParsley {
             get {
                 object obj = ResourceManager.GetObject("AtomicParsley", resourceCulture);
@@ -164,6 +174,16 @@ namespace Weatube.Properties {
         internal static byte[] PTSans_Regular {
             get {
                 object obj = ResourceManager.GetObject("PTSans_Regular", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] RifficFree_Bold {
+            get {
+                object obj = ResourceManager.GetObject("RifficFree_Bold", resourceCulture);
                 return ((byte[])(obj));
             }
         }

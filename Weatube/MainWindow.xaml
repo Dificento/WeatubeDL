@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:Weatube"
         xmlns:viewmodel="clr-namespace:Weatube.Viewmodels"
         mc:Ignorable="d"
@@ -59,6 +60,16 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
+                        <fa:ImageAwesome
+                            Foreground="{StaticResource MagentaTextBrush}" 
+                            Icon="Spinner"
+                            Spin="True"
+                            Visibility="{Binding Path=IsSearching, Converter={StaticResource BoolToVis}}"
+                            Height="30"
+                            Width="30"
+                            Margin="5, 0"
+                            HorizontalAlignment="Right"
+                            />
                     </Grid>
                 </Border>
 
@@ -148,8 +159,6 @@
                         TextWrapping="Wrap"/>
 
                 </Label>
-
-
                 <Button
                     Style="{StaticResource FolderButton}"
                     HorizontalAlignment="Right"

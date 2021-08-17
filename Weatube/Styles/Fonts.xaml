@@ -6,6 +6,8 @@
     <FontFamily x:Key="SansBold">pack://application:,,,/Properties/Fonts/#PT Sans Bold</FontFamily>
     <FontFamily x:Key="SansItalics">pack://application:,,,/Properties/Fonts/#PT Sans Italic</FontFamily>
     <FontFamily x:Key="FA5">pack://application:,,,/Properties/Fonts/#Font Awesome 5 Free Solid</FontFamily>
+    <FontFamily x:Key="Aller">pack://application:,,,/Properties/Fonts/#Aller</FontFamily>
+    <FontFamily x:Key="Riffic">pack://application:,,,/Properties/Fonts/#Riffic Free Medium</FontFamily>
     <system:Double x:Key="Regular">16</system:Double>
     <system:Double x:Key="Small">14</system:Double>
 </ResourceDictionary>

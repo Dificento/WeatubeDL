@@ -18,8 +18,11 @@ namespace Weatube.Viewmodels
 
         public SuggestionModel suggestion { get; private set; }
 
+        public YoutubeDL currentVideo { get; private set; }
+
         private string _SearchVideo { get; set; }
 
+        public bool IsSearching { get { return currentVideo != null; } }
         public string _SaveDirectoryPath { get; private set; }
         public string SaveDirectoryPath 
         { 
@@ -46,24 +49,25 @@ namespace Weatube.Viewmodels
                 _SearchVideo = value;
                 _ = Task.Run(async () =>
                 {
-                      if (_SearchVideo.Length < 1)
-                      {
-                          suggestion.Disable();
-                          await Task.Delay(300);
-                          suggestion = new SuggestionModel();
-                          return;
-                      }
-                      async Task<bool> UserKeepsTyping()
-                      {
-                          string txt = _SearchVideo;
-                          await Task.Delay(500);
-                          return txt != _SearchVideo;
-                      }
-                      if (await UserKeepsTyping()) return;
+                    if (_SearchVideo.Length < 1)
+                    {
+                        suggestion.Disable();
+                        await Task.Delay(300);
+                        suggestion = new SuggestionModel();
+                        return;
+                    }
+                    async Task<bool> UserKeepsTyping()
+                    {
+                        string txt = _SearchVideo;
+                        await Task.Delay(500);
+                        return txt != _SearchVideo;
+                    }
+                    if (await UserKeepsTyping()) return;
 
-                      var vid = new YoutubeDL(_SearchVideo);
-                      if (await vid.InitAsync() != null)
-                          if (_SearchVideo == vid.SourceUrl) suggestion = new SuggestionModel(vid);
+                    currentVideo = new YoutubeDL(_SearchVideo);
+                    if (await currentVideo.InitAsync() != null)
+                          if (_SearchVideo == currentVideo.SourceUrl) suggestion = new SuggestionModel(currentVideo);
+                    currentVideo = null;
                 });
             }
         }
@@ -76,6 +80,12 @@ namespace Weatube.Viewmodels
                 ? Settings.Default.DefaultSavePath
                 : Path.Combine(Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%"), "Downloads");
             _MessageOfTheDay = Resources.motd.Split('\n').ToList();
+            if (MessageOfTheDay == "Just Monika")
+            {
+                var dialog = new Window1();
+                dialog.ShowDialog();
+                dialog.Focus();
+            }
         }
 
         public ICommand AddVideo => 

@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.ComponentModel;
 using Weatube.Properties;
+using AutoUpdaterDotNET;
 
 namespace Weatube
 {
@@ -12,6 +13,8 @@ namespace Weatube
         {
             InitializeComponent();
             this.Closing += MainWindow_Closing;
+            AutoUpdater.InstalledVersion = new System.Version("1.0.0.0");
+            AutoUpdater.Start(Settings.Default.UpdateUrl);
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
