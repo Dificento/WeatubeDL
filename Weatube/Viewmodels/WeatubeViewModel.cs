@@ -23,6 +23,8 @@ namespace Weatube.Viewmodels
         private string _SearchVideo { get; set; }
 
         public bool IsSearching { get { return currentVideo != null; } }
+
+        public bool IsDownloading { get; private set; }
         public string _SaveDirectoryPath { get; private set; }
         public string SaveDirectoryPath 
         { 
@@ -112,7 +114,8 @@ namespace Weatube.Viewmodels
                 Task.Run(() =>
                 {
                     var path = SaveDirectoryPath + '\\';
-                    foreach (var f in Directory.GetFiles(path, "*.part"))
+                    foreach (string ext in new string[]{ "*.part", "*.webp" })
+                    foreach (var f in Directory.GetFiles(path, ext))
                     {
                         try { File.Delete(f); }
                         catch { Console.WriteLine("похуй..."); }
@@ -126,7 +129,8 @@ namespace Weatube.Viewmodels
             new DelegateCommand(async () =>
             {
                 VideoModel vid;
-                while ((vid = QueuedVideos.FirstOrDefault(a => !a.IsDownloaded)) != null)
+                IsDownloading = true;
+                while ((vid = QueuedVideos.FirstOrDefault(a => !a.IsDownloaded && a.DownloadProcess == null)) != null)
                 {
                     var filename = SaveDirectoryPath + '\\' + "%(title)s.%(ext)s";
                     var process = vid.DownloadProcess = YoutubeDL.RunProcess(vid.YoutubeVideo.GetCommandArguments(filename));
@@ -137,17 +141,15 @@ namespace Weatube.Viewmodels
                             Utils.DownloadStateChange(Utils.PercentFromOutput(null, await process.StandardError.ReadLineAsync()));
                     vid.IsDownloaded = true;
                 }
+                IsDownloading = false;
                 CommandManager.InvalidateRequerySuggested();
-            }, () => QueuedVideos.Count > 0);
+            }, () => QueuedVideos.Count > 0 && !IsDownloading);
 
         public ICommand ClearQueue =>
             new DelegateCommand(async () =>
             {
                 foreach (var item in QueuedVideos.Reverse())
-                {
-                    item.IsPanelEnabled = false;
-                    await Task.Delay(25);
-                }
+                    DeleteVideo.Execute(item);
                 await Task.Delay(300);
                 QueuedVideos.Clear();
                 CommandManager.InvalidateRequerySuggested();
