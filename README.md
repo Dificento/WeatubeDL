@@ -23,8 +23,11 @@ youtube-dl.exe: error: You must provide at least one URL.
 Type youtube-dl --help to see a list of all options.
 ```
 
+# Bugs
+
+Feel free to [report](https://github.com/Dificento/WeatubeDL/issues) any bugs, problems and other possible issues you find. 
+
 # License
 
 We are pretty much [don't care](LICENSE), but this project uses a number of third-party components. See [THIRDPARTY.md](THIRDPARTY.md) for more details.
-
 
