@@ -14,7 +14,7 @@ namespace Weatube.Properties
                 return 404d;
             }
             return output != null && output.Contains("%") ?
-                Convert.ToDouble(output.Split('%')[0].Split(']')[1].Trim()) / 100f : 100;
+                double.Parse(output.Split('%')[0].Split(']')[1].Trim(), System.Globalization.CultureInfo.InvariantCulture) / 100f : 100;
         }
 
         public static LinearGradientBrush DownloadStateChange(double percent)

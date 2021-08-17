@@ -158,7 +158,7 @@ namespace Weatube {
 		/// <returns></returns>
 		public IEnumerable<Video> Init() {
 			// Создаем процесс
-			var process = RunProcess("--simulate --print-json " + SourceUrl);
+			var process = RunProcess("--simulate --print-json --no-check-certificate" + SourceUrl);
 
 			// Создаем ОБЪЕКТ
 			string output;
@@ -330,7 +330,7 @@ namespace Weatube {
 				var args = 
 					GetCommandArguments() + 
 					(!IsVideo ? " --embed-thumbnail " : "") + // не видео - докачиваем превью
-					" --add-metadata --xattrs -o \"" + filename + "\"";
+					" --add-metadata --xattrs --no-check-certificate -o \"" + filename + "\"";
 				return args;
 			}
 

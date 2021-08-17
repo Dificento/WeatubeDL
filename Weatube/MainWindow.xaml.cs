@@ -13,7 +13,7 @@ namespace Weatube
         {
             InitializeComponent();
             this.Closing += MainWindow_Closing;
-            AutoUpdater.InstalledVersion = new System.Version("1.0.0.2");
+            AutoUpdater.InstalledVersion = new System.Version("1.0.1");
             AutoUpdater.Start(Settings.Default.UpdateUrl);
         }
 

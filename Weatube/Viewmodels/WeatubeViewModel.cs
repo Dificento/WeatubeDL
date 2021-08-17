@@ -118,7 +118,7 @@ namespace Weatube.Viewmodels
                     foreach (var f in Directory.GetFiles(path, ext))
                     {
                         try { File.Delete(f); }
-                        catch { Console.WriteLine("похуй..."); }
+                        catch { Console.WriteLine("nevermind..."); }
                     }
                 });
 #pragma warning restore CS4014
@@ -130,7 +130,7 @@ namespace Weatube.Viewmodels
             {
                 VideoModel vid;
                 IsDownloading = true;
-                while ((vid = QueuedVideos.FirstOrDefault(a => !a.IsDownloaded && a.DownloadProcess == null)) != null)
+                while ((vid = QueuedVideos.FirstOrDefault(a => !a.IsDownloaded)) != null)
                 {
                     var filename = SaveDirectoryPath + '\\' + "%(title)s.%(ext)s";
                     var process = vid.DownloadProcess = YoutubeDL.RunProcess(vid.YoutubeVideo.GetCommandArguments(filename));
