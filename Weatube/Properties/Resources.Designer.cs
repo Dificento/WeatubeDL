@@ -73,36 +73,6 @@ namespace Weatube.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] AtomicParsley {
-            get {
-                object obj = ResourceManager.GetObject("AtomicParsley", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] ffmpeg {
-            get {
-                object obj = ResourceManager.GetObject("ffmpeg", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] ffprobe {
-            get {
-                object obj = ResourceManager.GetObject("ffprobe", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] libwebp_x64 {
             get {
                 object obj = ResourceManager.GetObject("libwebp_x64", resourceCulture);
@@ -184,16 +154,6 @@ namespace Weatube.Properties {
         internal static byte[] RifficFree_Bold {
             get {
                 object obj = ResourceManager.GetObject("RifficFree_Bold", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] youtube_dl {
-            get {
-                object obj = ResourceManager.GetObject("youtube_dl", resourceCulture);
                 return ((byte[])(obj));
             }
         }

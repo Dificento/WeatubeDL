@@ -121,15 +121,6 @@
   <data name="Aller_Rg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Fonts\Aller-Rg.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="AtomicParsley" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\AtomicParsley.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ffmpeg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ffmpeg.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ffprobe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ffprobe.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="libwebp_x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\libwebp_x64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -150,8 +141,5 @@
   </data>
   <data name="RifficFree_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Fonts\RifficFree-Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="youtube_dl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\youtube-dl.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
