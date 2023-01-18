@@ -2,7 +2,7 @@
 
 # WeatubeDL
 
-A simple [Youtube-DL](https://github.com/ytdl-org/youtube-dl) interface.
+A simple [YT-DLP](https://github.com/yt-dlp/yt-dlp) interface.
 
 ![Preview](https://files.dificen.to/index.php/s/3TdrweSAXBWEHQc/download/Screenshot_182.png)  
 
