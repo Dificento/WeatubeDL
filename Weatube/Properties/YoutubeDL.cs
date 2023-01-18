@@ -32,7 +32,7 @@ namespace Weatube {
 			public string container;
 			public string format_note;
 			public string ext;
-			public int? fps;
+			public float? fps;
 			public long? filesize;
 		}
 
@@ -139,7 +139,7 @@ namespace Weatube {
 
 		public static Process RunProcess(string arguments) {
 			var startInfo = new ProcessStartInfo {
-				FileName = "youtube-dl.exe",
+				FileName = "yt-dlp.exe",
 				Arguments = arguments,
 				CreateNoWindow = true,
 				UseShellExecute = false,
@@ -323,7 +323,7 @@ namespace Weatube {
 			}
 
 			/// <summary>
-			/// Получить список аргументов для экспорта видео через youtube-dl
+			/// Получить список аргументов для экспорта видео через yt-dlp
 			/// </summary>
 			/// <param name="filename">имя файла для сохранения видео</param>
 			public string GetCommandArguments(string filename) {
@@ -336,7 +336,7 @@ namespace Weatube {
 
 
 			/// <summary>
-			/// Получить список аргументов для экспорта видео через youtube-dl
+			/// Получить список аргументов для экспорта видео через yt-dlp
 			/// </summary>
 			public string GetCommandArguments() {
 				switch (SelectedFormat.Type) {
@@ -431,7 +431,7 @@ namespace Weatube {
 				}
 
 				/// <summary>
-				/// Достать "функциональную" строку из формата (для использования в качестве аргумента -f для youtube-dl)
+				/// Достать "функциональную" строку из формата (для использования в качестве аргумента -f для yt-dlp)
 				/// Принимает значение имени, если width/height пустые
 				/// </summary>
 				public override string GetCommand() {

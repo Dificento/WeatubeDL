@@ -7,20 +7,20 @@ A simple [Youtube-DL](https://github.com/ytdl-org/youtube-dl) interface.
 ![Preview](https://files.dificen.to/index.php/s/3TdrweSAXBWEHQc/download/Screenshot_182.png)  
 
 ``` bash
-> youtube-dl.exe -v
-[debug] System config: []
-[debug] User config: []
-[debug] Custom config: []
-[debug] Command-line args: ['-v']
-[debug] Encodings: locale cp1251, fs mbcs, out cp866, pref cp1251
-[debug] youtube-dl version 2021.06.06
-[debug] Python version 3.4.4 (CPython) - Windows-10-10.0.18362
-[debug] exe versions: ffmpeg 4.4-essentials_build-www.gyan.dev, ffprobe 4.4-essentials_build-www.gyan.dev
+> .\yt-dlp.exe -v
+[debug] Command-line config: ['-v']
+[debug] Encodings: locale cp1251, fs utf-8, pref cp1251, out utf-8, error utf-8, screen utf-8
+[debug] yt-dlp version 2023.01.06 [6becd25] (win_exe)
+[debug] Python 3.8.10 (CPython AMD64 64bit) - Windows-10-10.0.18363-SP0 (OpenSSL 1.1.1k  25 Mar 2021)
+[debug] exe versions: ffmpeg 4.4-essentials_build-www.gyan.dev (setts), ffprobe 4.4-essentials_build-www.gyan.dev
+[debug] Optional libraries: Cryptodome-3.16.0, brotli-1.0.9, certifi-2022.12.07, mutagen-1.46.0, sqlite3-2.6.0, websockets-10.4
 [debug] Proxy map: {}
-Usage: youtube-dl.exe [OPTIONS] URL [URL...]
+[debug] Loaded 1760 extractors
 
-youtube-dl.exe: error: You must provide at least one URL.
-Type youtube-dl --help to see a list of all options.
+Usage: yt-dlp.exe [OPTIONS] URL [URL...]
+
+yt-dlp.exe: error: You must provide at least one URL.
+Type yt-dlp --help to see a list of all options.
 ```
 
 # Bugs

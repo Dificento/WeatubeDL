@@ -2,7 +2,7 @@ Weatube uses the following third-party libraries, packages and binaries that may
 
 ________
 
-#### [youtube-dl](https://github.com/ytdl-org/youtube-dl)
+#### [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 
 - Licensed under the [Unlicense](https://github.com/ytdl-org/youtube-dl/blob/master/LICENSE) license
 
