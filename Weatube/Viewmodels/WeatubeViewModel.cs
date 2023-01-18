@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using Weatube.Models;
 using Weatube.Properties;
+using System.Text.RegularExpressions;
 
 namespace Weatube.Viewmodels
 {
@@ -166,7 +167,7 @@ namespace Weatube.Viewmodels
         public ICommand OpenFileInExplorer =>
             new DelegateCommand<VideoModel>((video) =>
             {
-                if (video.SavePath != null)
+                if (video.SavePath != null && !Regex.IsMatch(video.SavePath, @"\p{IsCyrillic}"))
                     System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", video.SavePath.Replace(@"\\", @"\")));
                 else System.Diagnostics.Process.Start("explorer.exe", Settings.Default.DefaultSavePath);
             }, (video) => video != null && video.IsDownloaded == true);
