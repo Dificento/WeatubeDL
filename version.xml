@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item>
-    <version>1.0.1.1</version>
-    <url>https://github.com/Dificento/WeatubeDL/releases/download/v1.0.1.1/WeatubeDL-v1.0.1.1.zip</url>
+    <version>1.1.1</version>
+    <url>https://github.com/Dificento/WeatubeDL/releases/download/v1.1.1/WeatubeDL-v1.1.1.zip</url>
     <changelog>https://github.com/Dificento/WeatubeDL/releases</changelog>
     <mandatory>false</mandatory>
 </item>
