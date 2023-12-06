@@ -82,7 +82,7 @@ namespace Weatube.Viewmodels
             _SaveDirectoryPath = (Settings.Default.DefaultSavePath.Length > 0) 
                 ? Settings.Default.DefaultSavePath
                 : Path.Combine(Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%"), "Downloads");
-            _MessageOfTheDay = Resources.motd.Split('\n').ToList();
+            _MessageOfTheDay = File.Exists("nsfw.dfcn") ? Resources.motd.Split('\n').ToList() : new List<string>() { "Added videos:" }; 
             if (MessageOfTheDay.Contains("Monika"))
             {
                 var dialog = new Window1();
